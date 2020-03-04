@@ -1,0 +1,14 @@
+1. Panel-uri (Bucur Robert + Bogdan Gheorghe)
+2. Controale standard si UserControls (Camen Gabriel + Bobes Andrei)
+3. Data Binding + UpdateSourceTrigger (Danalachi Luisa  + Bageac Alexandra)
+4. INotifyPropertyChange vs DependencyProperty
+5. Converters (si in context de MultiBinding)
+6. Validators (Burtan Gabriela + Boncu  Daniela)
+
+Documentatie:
+http://www.wpf-tutorial.com
+http://www.wpftutorial.net/Home.html
+Validatori:
+https://msdn.microsoft.com/en-us/magazine/ff714593.aspx
+
+burtangabriela@gmail.com
