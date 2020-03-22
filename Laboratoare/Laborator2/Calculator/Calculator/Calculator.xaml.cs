@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Tema1_MVP_Calculator
+namespace Calculator
 {
     /// <summary>
     /// Interaction logic for Calculator.xaml
@@ -22,6 +22,12 @@ namespace Tema1_MVP_Calculator
         public Calculator()
         {
             InitializeComponent();
+        }
+
+        private void AboutClick(object sender, RoutedEventArgs e)
+        {
+            AboutWindow window = new AboutWindow();
+            window.Show();
         }
     }
 }

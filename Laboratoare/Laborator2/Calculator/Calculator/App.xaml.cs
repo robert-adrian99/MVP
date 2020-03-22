@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Tema1_MVP_Calculator
+namespace Calculator
 {
     /// <summary>
     /// Interaction logic for App.xaml

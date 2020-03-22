@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Tema1_MVP_Calculator.Properties
+namespace Calculator.Properties
 {
 
 
