@@ -1,0 +1,74 @@
+Data binding se refera la creearea unei legaturi sau dependinte intre doua surse de date(proprietati) si a le pastra sincronizate.
+In fisierul de timp xaml acest lucru de face prin adaugarea sintaxei:
+{Binding Path = NameOfProperty} la definirea unui element UI
+
+Path defineste proprietatea obiectului, pe care dorim s-o legam. Dar cum Path este proprietate default a Bindingului, aceasta poate
+sa nu fie scrisa. Precum in urmatorul exemplu:
+{Binding NameOfProperty}
+
+Exemplu concret:
+{Binding Path = Text, ElementName = txtValue}
+ElementName faciliteaza conectarea directa cu alt element UI, sursa. Toate proprietatile bindingului se separa prin virgula.
+
+Exista 4 tipuri de a realiza data binding:
+,,one way" care inseamna ca daca valoarea proprietatii sursei se schimba, acest lucru va afecta valoarea proprietatii target-ului
+,,two way" inseamna ca este valabila ,,one way" dar si vice versa
+,,one way to source" inseamna ca daca valoarea proprietatii targetului se schimba, acest lucru va afecta valoarea proprietatii sursei
+,,one time" bindingul se realizeaza intr-un constructor sau la initializare, si este efectuat in codul din spate.
+
+Exemplu:
+Definim un TextBox si un slider care sunt independente momentan, adica schimbarile aplicate unuia nu-l afecteaza pe celalalt.
+<StackPanel>
+   <TextBox Width="100" Margin="50" Text = "15"></TextBox>
+   <Slider Minimum="0" Maximum="100" Width= "500"></Slider>
+</StackPanel>
+
+One way example:
+ <StackPanel>
+        <TextBox FontSize="28" Margin="20" Width="100" Text="{Binding ElementName=MySlider,Path=Value, Mode=OneWay}"></TextBox>
+        <Slider Name="MySlider" Width="500" Minimum="0" Maximum="100"></Slider>
+    </StackPanel>
+//Rezultatul va fi ca valoarea din TextBox se va schimba cand mutam sliderul, iar valoarea va avea multe zecimale. Pentru numere intregi trebuie sa folosim o proprietate
+numita ,, IsSnapToTickEnabled" si sa o setam pe True. Slider-ul reprezinta the binding source iar TextBox-ul the binding target.
+
+Two way example:
+  <StackPanel>
+        <TextBox FontSize="28" Margin="20" Width="100" Text="{Binding ElementName=MySlider,Path=Value, Mode=TwoWay}"></TextBox>
+        <Slider IsSnapToTickEnabled="True" Name="MySlider" Width="500" Minimum="0" Maximum="100"></Slider>
+    </StackPanel>
+
+One way to source example:
+ <StackPanel>
+        <TextBox FontSize="28" Margin="20" Width="100" Text="{Binding ElementName=MySlider,Path=Value, Mode=OneWayToSource}"></TextBox>
+        <Slider Name="MySlider" Width="500" Minimum="0" Maximum="100"></Slider>
+    </StackPanel>
+//Cand o valoare este adaugata in TextBox atunci pozitia sliderului se schimba, dupa apasarea tastei Tab, deoarece proprietatea
+UpdateSourceTrigger este setata pe LostFocus, by default.
+
+The one time example:
+//Necesita cod scris in fisierul .cs, deoarece one time mode se realizarea intr-un constructor sau in timpul unei initializari.
+Deschidem fisierul si adaugam codul in constructorul ferestrei.
+
+ <StackPanel>
+        <TextBox Name ="MyTextBox" FontSize="28" Margin="20" Width="100" Text="{Binding ElementName=MySlider,Path=Value, Mode=OneTime}"></TextBox>
+        <Slider Name="MySlider" Width="500" Minimum="0" Maximum="100"></Slider>
+    </StackPanel>
+
+public MainWindow()
+{
+   InitializeComponent();
+   MySlider.Value = 30;
+   MyTextBox.Text = MySlider.Value.ToString();
+}
+
+//Nu in ultimul rand, am dori ca valorile sa se schimbe fara a apasa Tab. Acest lucru este posibil utilizand proprietatea numita 
+,, UpdateSourceTrigger" si setata pe PropertyChanged.
+
+   <StackPanel>
+        <TextBox Name ="MyTextBox" FontSize="28" Margin="20" Width="100" Text="{Binding ElementName=MySlider,Path=Value, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <Slider Name="MySlider" Width="500" Minimum="0" Maximum="100"></Slider>
+    </StackPanel>
+
+//Daca scriem in TextBox o valoare mai mare decat maximul sliderului, aceasta se seteaza instant la maximul sliderului.
+Putem aplica tehnica de binding pentru mai multe proprietati ale elementelor UI precum: foreground, background, text, value etc.
+UpdateSourceTree are trei moduri: LostFocus, PropertyChanged si Explicit
