@@ -1,0 +1,28 @@
+﻿<Window x:Class="WpfApplication1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ctx="clr-namespace:WpfApplication1"
+        Title="MainWindow" Height="350" Width="525">
+    <!--<Window.DataContext>
+        <ctx:Student />
+    </Window.DataContext>-->
+    <Grid>
+        <TextBlock Margin="26,23,413,273" Text="Nume Stud:" />
+        <TextBox Name ="txtNume" Margin="110,15,287,273" Text="{Binding Nume}"/>
+        <TextBlock Margin="25,72,413,224" Text="Prenume:"/>
+        <TextBox Name="txtPrenume" Margin="109,65,288,224" Text="{Binding Prenume}"/>
+        <ListBox Name="lbNote" Margin="95,133,126,35" SelectionMode="Multiple" ItemsSource="{Binding ListaNote}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <WrapPanel>
+                        <TextBox Name="txtNota"  Text="{Binding ValoareNota}" Height="31" Width="120"/>
+                        <TextBox Name="txtMaterie" Text="{Binding Materia}" Height="31" Width="120"/>
+                    </WrapPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Button Name="btnNota" Content="Add Nota" Margin="396,132,29,160" Click="btnNota_Click"/>
+        <Button Name="btnSterge" Content="Del Nota" Margin="396,185,29,107" Click="btnSterge_Click"/>
+        <Button Name="btnStud" Content="Afiseaza Student" Margin="373,23,29,267" Click="btnStud_Click"/>
+    </Grid>
+</Window>
