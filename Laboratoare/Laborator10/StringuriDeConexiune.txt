@@ -1,0 +1,8 @@
+Stringul de conexiune pentru SqlServer authentication:
+Data Source=myServerAddress;Initial Catalog=myDataBase;User Id=myUsername;Password=myPassword;
+
+Stringul de conexiune pentru Windows authentication:
+Data Source=myServerAddress;Initial Catalog=myDataBase;Integrated Security=SSPI;
+
+Stringul de conexiune pentru AttachedDatabase:
+Server=myServerAddress;AttachDbFilename=myDataBaseFileName.mdf;Database=myDataBase;Trusted_Connection=Yes;
