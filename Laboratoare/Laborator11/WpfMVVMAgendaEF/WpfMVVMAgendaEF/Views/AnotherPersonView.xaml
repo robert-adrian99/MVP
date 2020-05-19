@@ -1,0 +1,74 @@
+﻿<Window x:Class="WpfMVVMAgendaEF.Views.AnotherPersonView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:WpfMVVMAgendaEF.ViewModels"
+        Title="PersonView" Height="500" Width="525">
+    <Window.DataContext>
+        <local:PersonVM />
+    </Window.DataContext>
+    <StackPanel>
+        <WrapPanel>
+            <Button Content="Adauga" Margin="15" Width="100" Height="30" Command="{Binding AddCommand}"
+                    CommandParameter="{Binding ElementName=personsGrid, Path=SelectedItem}" />
+            <Label Name="lblMessage" Content="{Binding Message}" Height="30" FontSize="15" Foreground="Red"/>
+        </WrapPanel>
+        <DataGrid Name="personsGrid"  Margin="0,15,0,0" AutoGenerateColumns="False" Height="350"
+                  ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding PersonsList}">
+            <!--<DataGridTextColumn Header="Nume" Binding="{Binding Name}" />
+                <DataGridTextColumn Header="Adresa" Binding="{Binding Address}" />-->
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Nume">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label Name="lblN" Content="{Binding Name}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <TextBox Name="txtN" Text="{Binding ElementName=personsGrid, Path=SelectedItem.Name}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
+                
+                <DataGridTemplateColumn Header="Adresa">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label Name="lblA" Content="{Binding Address}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <TextBox Name="txtA" Text="{Binding ElementName=personsGrid, Path=SelectedItem.Address}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
+                
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Margin="5" Width="30" Height="30" Command="{Binding UpdateCommand}" 
+                                    CommandParameter="{Binding ElementName=personsGrid, Path=SelectedItem}">
+                                <Button.Content>
+                                    <Image Source="/WpfMVVMAgendaEF;component/Images/update.png" />
+                                </Button.Content>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Width="30" Height="30" Command="{Binding DeleteCommand}" 
+                                    CommandParameter="{Binding ElementName=personsGrid, Path=SelectedItem}">
+                                <Button.Content>
+                                    <Image Source="/WpfMVVMAgendaEF;component/Images/delete.png" />
+                                </Button.Content>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </StackPanel>
+</Window>

@@ -1,0 +1,22 @@
+﻿<Window x:Class="WpfMVVMAgendaEF.Views.PersonsWOPhonesView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:WpfMVVMAgendaEF.ViewModels"
+        Title="PersonsWOPhonesView" Height="300" Width="300">
+    <Window.DataContext>
+        <local:PersonsWoPhoneVM />
+    </Window.DataContext>
+    <DockPanel>
+        <ListBox Name="listPersWoPhone" ItemsSource="{Binding PersonsList}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <WrapPanel>
+                        <Label Content="{Binding nume}" />
+                        <Label Content="din" />
+                        <Label Content="{Binding adresa}" />
+                    </WrapPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </DockPanel>
+</Window>

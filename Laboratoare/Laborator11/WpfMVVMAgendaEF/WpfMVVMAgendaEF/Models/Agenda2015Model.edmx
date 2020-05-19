@@ -1,0 +1,273 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Agenda2015Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="persoane">
+          <Key>
+            <PropertyRef Name="idPersoana" />
+          </Key>
+          <Property Name="idPersoana" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nume" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="adresa" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="telefoane">
+          <Key>
+            <PropertyRef Name="idTelefon" />
+          </Key>
+          <Property Name="idTelefon" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idPersoana" Type="int" Nullable="false" />
+          <Property Name="numarTelefon" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="descriere" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_telefoane_persoane">
+          <End Role="persoane" Type="Self.persoane" Multiplicity="1" />
+          <End Role="telefoane" Type="Self.telefoane" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="persoane">
+              <PropertyRef Name="idPersoana" />
+            </Principal>
+            <Dependent Role="telefoane">
+              <PropertyRef Name="idPersoana" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="AddPerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nume" Type="nvarchar" Mode="In" />
+          <Parameter Name="adresa" Type="nvarchar" Mode="In" />
+          <Parameter Name="idPersoana" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="AddPerson2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="n" Type="nvarchar" Mode="In" />
+          <Parameter Name="a" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="AddPhoneForPerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idPersoana" Type="int" Mode="In" />
+          <Parameter Name="numarTelefon" Type="char" Mode="In" />
+          <Parameter Name="descriere" Type="nvarchar" Mode="In" />
+          <Parameter Name="idTelefon" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="AddPhoneForPerson2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idPersoana" Type="int" Mode="In" />
+          <Parameter Name="numarTelefon" Type="char" Mode="In" />
+          <Parameter Name="descriere" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="DeletePerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idPersoana" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeletePhone" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idTelefon" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetAllPersons" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetAllPersonsWithNoPhone" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetPhonesForPerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idPersoana" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ModifyPerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idPersoana" Type="int" Mode="In" />
+          <Parameter Name="nume" Type="nvarchar" Mode="In" />
+          <Parameter Name="adresa" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="ModifyPhone" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idPersoana" Type="int" Mode="In" />
+          <Parameter Name="numarTelefon" Type="char" Mode="In" />
+          <Parameter Name="descriere" Type="nvarchar" Mode="In" />
+          <Parameter Name="idTelefon" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="Agenda2015ModelStoreContainer">
+          <EntitySet Name="persoane" EntityType="Self.persoane" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="telefoane" EntityType="Self.telefoane" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_telefoane_persoane" Association="Self.FK_telefoane_persoane">
+            <End Role="persoane" EntitySet="persoane" />
+            <End Role="telefoane" EntitySet="telefoane" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Agenda2015Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="persoane">
+          <Key>
+            <PropertyRef Name="idPersoana" />
+          </Key>
+          <Property Name="idPersoana" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nume" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="adresa" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="telefoanes" Relationship="Self.FK_telefoane_persoane" FromRole="persoane" ToRole="telefoane" />
+        </EntityType>
+        <EntityType Name="telefoane">
+          <Key>
+            <PropertyRef Name="idTelefon" />
+          </Key>
+          <Property Name="idTelefon" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idPersoana" Type="Int32" Nullable="false" />
+          <Property Name="numarTelefon" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="descriere" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="persoane" Relationship="Self.FK_telefoane_persoane" FromRole="telefoane" ToRole="persoane" />
+        </EntityType>
+        <Association Name="FK_telefoane_persoane">
+          <End Role="persoane" Type="Self.persoane" Multiplicity="1" />
+          <End Role="telefoane" Type="Self.telefoane" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="persoane">
+              <PropertyRef Name="idPersoana" />
+            </Principal>
+            <Dependent Role="telefoane">
+              <PropertyRef Name="idPersoana" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Agenda2015Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="persoanes" EntityType="Self.persoane" />
+          <EntitySet Name="telefoanes" EntityType="Self.telefoane" />
+          <AssociationSet Name="FK_telefoane_persoane" Association="Self.FK_telefoane_persoane">
+            <End Role="persoane" EntitySet="persoanes" />
+            <End Role="telefoane" EntitySet="telefoanes" />
+          </AssociationSet>
+          <FunctionImport Name="AddPerson">
+            <Parameter Name="nume" Mode="In" Type="String" />
+            <Parameter Name="adresa" Mode="In" Type="String" />
+            <Parameter Name="idPersoana" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="AddPerson2">
+            <Parameter Name="n" Mode="In" Type="String" />
+            <Parameter Name="a" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="AddPhoneForPerson">
+            <Parameter Name="idPersoana" Mode="In" Type="Int32" />
+            <Parameter Name="numarTelefon" Mode="In" Type="String" />
+            <Parameter Name="descriere" Mode="In" Type="String" />
+            <Parameter Name="idTelefon" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="AddPhoneForPerson2">
+            <Parameter Name="idPersoana" Mode="In" Type="Int32" />
+            <Parameter Name="numarTelefon" Mode="In" Type="String" />
+            <Parameter Name="descriere" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="DeletePerson">
+            <Parameter Name="idPersoana" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeletePhone">
+            <Parameter Name="idTelefon" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetAllPersons" ReturnType="Collection(Agenda2015Model.GetAllPersons_Result)" />
+          <FunctionImport Name="GetAllPersonsWithNoPhone" ReturnType="Collection(Agenda2015Model.GetAllPersonsWithNoPhone_Result)" />
+          <FunctionImport Name="GetPhonesForPerson" ReturnType="Collection(Agenda2015Model.GetPhonesForPerson_Result)">
+            <Parameter Name="idPersoana" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ModifyPerson">
+            <Parameter Name="idPersoana" Mode="In" Type="Int32" />
+            <Parameter Name="nume" Mode="In" Type="String" />
+            <Parameter Name="adresa" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ModifyPhone">
+            <Parameter Name="idPersoana" Mode="In" Type="Int32" />
+            <Parameter Name="numarTelefon" Mode="In" Type="String" />
+            <Parameter Name="descriere" Mode="In" Type="String" />
+            <Parameter Name="idTelefon" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="GetAllPersons_Result">
+          <Property Type="Int32" Name="idPersoana" Nullable="false" />
+          <Property Type="String" Name="nume" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="adresa" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="GetAllPersonsWithNoPhone_Result">
+          <Property Type="Int32" Name="idPersoana" Nullable="false" />
+          <Property Type="String" Name="nume" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="adresa" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="GetPhonesForPerson_Result">
+          <Property Type="Int32" Name="idTelefon" Nullable="false" />
+          <Property Type="Int32" Name="idPersoana" Nullable="false" />
+          <Property Type="String" Name="numarTelefon" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="descriere" Nullable="false" MaxLength="20" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Agenda2015ModelStoreContainer" CdmEntityContainer="Agenda2015Entities">
+          <EntitySetMapping Name="persoanes">
+            <EntityTypeMapping TypeName="Agenda2015Model.persoane">
+              <MappingFragment StoreEntitySet="persoane">
+                <ScalarProperty Name="idPersoana" ColumnName="idPersoana" />
+                <ScalarProperty Name="nume" ColumnName="nume" />
+                <ScalarProperty Name="adresa" ColumnName="adresa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="telefoanes">
+            <EntityTypeMapping TypeName="Agenda2015Model.telefoane">
+              <MappingFragment StoreEntitySet="telefoane">
+                <ScalarProperty Name="idTelefon" ColumnName="idTelefon" />
+                <ScalarProperty Name="idPersoana" ColumnName="idPersoana" />
+                <ScalarProperty Name="numarTelefon" ColumnName="numarTelefon" />
+                <ScalarProperty Name="descriere" ColumnName="descriere" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="AddPerson" FunctionName="Agenda2015Model.Store.AddPerson" />
+          <FunctionImportMapping FunctionImportName="AddPerson2" FunctionName="Agenda2015Model.Store.AddPerson2" />
+          <FunctionImportMapping FunctionImportName="AddPhoneForPerson" FunctionName="Agenda2015Model.Store.AddPhoneForPerson" />
+          <FunctionImportMapping FunctionImportName="AddPhoneForPerson2" FunctionName="Agenda2015Model.Store.AddPhoneForPerson2" />
+          <FunctionImportMapping FunctionImportName="DeletePerson" FunctionName="Agenda2015Model.Store.DeletePerson" />
+          <FunctionImportMapping FunctionImportName="DeletePhone" FunctionName="Agenda2015Model.Store.DeletePhone" />
+          <FunctionImportMapping FunctionImportName="GetAllPersons" FunctionName="Agenda2015Model.Store.GetAllPersons">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Agenda2015Model.GetAllPersons_Result">
+                <ScalarProperty Name="idPersoana" ColumnName="idPersoana" />
+                <ScalarProperty Name="nume" ColumnName="nume" />
+                <ScalarProperty Name="adresa" ColumnName="adresa" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllPersonsWithNoPhone" FunctionName="Agenda2015Model.Store.GetAllPersonsWithNoPhone">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Agenda2015Model.GetAllPersonsWithNoPhone_Result">
+                <ScalarProperty Name="idPersoana" ColumnName="idPersoana" />
+                <ScalarProperty Name="nume" ColumnName="nume" />
+                <ScalarProperty Name="adresa" ColumnName="adresa" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetPhonesForPerson" FunctionName="Agenda2015Model.Store.GetPhonesForPerson">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Agenda2015Model.GetPhonesForPerson_Result">
+                <ScalarProperty Name="idTelefon" ColumnName="idTelefon" />
+                <ScalarProperty Name="idPersoana" ColumnName="idPersoana" />
+                <ScalarProperty Name="numarTelefon" ColumnName="numarTelefon" />
+                <ScalarProperty Name="descriere" ColumnName="descriere" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ModifyPerson" FunctionName="Agenda2015Model.Store.ModifyPerson" />
+          <FunctionImportMapping FunctionImportName="ModifyPhone" FunctionName="Agenda2015Model.Store.ModifyPhone" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

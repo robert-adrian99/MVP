@@ -1,0 +1,27 @@
+﻿<Window x:Class="WpfXMLSerialization.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ctx="clr-namespace:WpfXMLSerialization.ViewModels"
+        Title="MainWindow" Height="350" Width="550">
+    <Window.DataContext>
+        <ctx:MainWindowViewModel />
+    </Window.DataContext>
+    <StackPanel>
+        <WrapPanel HorizontalAlignment="Center">
+            <Button Content="Serializeaza" Name="btnSerialize" Margin="10" 
+                    Click="btnSerialize_Click" />
+            <Button Content="Deserializeaza" Name="btnDeserialize" Margin="10" 
+                    Click="btnDeserialize_Click"/>
+        </WrapPanel>
+        <DataGrid Margin="10" Name="carsGrid" ItemsSource="{Binding CarList}"
+                  AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Nume Proprietar" Binding="{Binding Owner.FirstName}" />
+                <DataGridTextColumn Header="Prenume Proprietar" Binding="{Binding Owner.LastName}" />
+                <DataGridTextColumn Header="Marca Masina" Binding="{Binding Make}" />
+                <DataGridTextColumn Header="Model Masina" Binding="{Binding Model}" />
+                <DataGridTextColumn Header="An Fabricatie" Binding="{Binding Year}" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </StackPanel>
+</Window>
